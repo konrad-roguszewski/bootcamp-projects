@@ -1,0 +1,101 @@
+nav {
+    display: flex;   
+    justify-content: space-evenly;
+    height: 40px; 
+    
+}
+
+nav button {
+    border: none;
+    background: none;
+    color:darkgreen;
+    font-weight: bold;
+}
+
+nav button:hover {
+    color:limegreen;
+    border-bottom: solid 3px limegreen;
+}
+
+p, text {
+    font-family: Arial;
+}
+
+header {
+    display:
+}
+
+text {
+    font-size: 110px;
+    text-transform: uppercase;
+    fill: grey;
+    font-weight: bolder;
+    opacity: 0.1;
+    margin-bottom: -20px;
+    padding: none;
+}
+
+p.title-1 {
+    font-size: 20px;
+    text-transform: uppercase;
+    color:limegreen;
+    font-weight: bold;
+    margin-top: -40px;
+}
+
+h1 {
+    font-size: 50px;
+    color:darkblue;
+}
+
+header p {
+    color:dimgray;
+}
+
+header img {
+    border-radius: 150px;
+    width: auto;
+    height: 300px;
+   
+}
+
+header button {
+    font-size: 20px;
+    text-transform: uppercase;
+    color:limegreen;
+    font-weight: bold;
+    background: white;
+    border: limegreen 2px solid;
+    border-radius: 20px;
+    padding: 5px 30px;
+}
+
+section#shop {
+    background-image:url(./background-1.jpeg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+section#shop p {
+    text-transform: uppercase;
+    font-size: 30px;
+    text-align: center;
+    color: white;
+    font-family: Arial;
+}
+
+section#shop p.desc {
+    text-transform: uppercase;
+    font-size: 10px;
+}
+
+h2 {
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    font-family: Arial;
+}
+
+
