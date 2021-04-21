@@ -1,37 +1,77 @@
-nav {
-    display: flex;   
-    justify-content: space-evenly;
-    height: 40px; 
-    
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-nav button {
+body {
+    font-family: sans-serif;
+}
+
+/*        */
+/*  NAV   */
+/*        */
+
+ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+li:first-child a {
+    border: none;
+}
+
+li:last-child a {
+    display: inline-block;
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 20vw;
+    background-color: limegreen;
+}
+
+img {
+    border-radius: 50%;
+    height: 75px;
+    margin-bottom: 100px;
+}
+
+a {
+    text-decoration: none;
+    padding: 0px 0px 10px;
     border: none;
     background: none;
     color:darkgreen;
     font-weight: bold;
 }
 
-nav button:hover {
+a:hover {
     color:limegreen;
-    border-bottom: solid 3px limegreen;
+    border-bottom: solid 4px limegreen;
 }
 
-p, text {
-    font-family: Arial;
-}
+
+/*          */
+/*  HEADER  */
+/*          */
 
 header {
-    display:
+    display: flex;
+    justify-content: space-between;
 }
 
 text {
-    font-size: 110px;
+    font-size: 120px;
     text-transform: uppercase;
     fill: grey;
     font-weight: bolder;
     opacity: 0.1;
-    margin-bottom: -20px;
+    margin-bottom: -25px;
     padding: none;
 }
 
@@ -46,17 +86,12 @@ p.title-1 {
 h1 {
     font-size: 50px;
     color:darkblue;
+    width: 400px;
 }
 
 header p {
     color:dimgray;
-}
-
-header img {
-    border-radius: 150px;
-    width: auto;
-    height: 300px;
-   
+    width: 400px;
 }
 
 header button {
@@ -69,6 +104,24 @@ header button {
     border-radius: 20px;
     padding: 5px 30px;
 }
+
+header img {
+    border-radius: 150px;
+    width: auto;
+    height: 300px;
+    outline: 1px solid white;
+    outline-offset: 50px;
+    margin-left: -150px;
+}
+
+div.side-img {
+    width: 20vw;
+    background-color: limegreen;
+}
+
+/*  */
+/* SECTION-SHOP */
+/*  */
 
 section#shop {
     background-image:url(./background-1.jpeg);
