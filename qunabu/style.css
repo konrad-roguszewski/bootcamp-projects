@@ -1,0 +1,57 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+.container {
+    display: grid;
+    
+    min-height: 100vh;
+    width: 40%;
+    margin: 0 auto;
+
+    
+    align-content: center;
+}
+
+.done,
+.undone {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+div.done,
+div.undone,
+footer,
+header {
+    border: 1px solid gray;
+    padding: 10px;
+}
+
+img.done,
+img.undone,
+img.new {
+    width: 20px;
+    height: 20px;
+}
+
+.done {
+    opacity: 0.5;
+    
+}
+
+p.done {
+    text-decoration: line-through;
+}
+
+header {
+    color: white;
+    background-color: rgb(57, 54, 71);
+}
+
+h1 {
+    font-size: 20px;
+}
