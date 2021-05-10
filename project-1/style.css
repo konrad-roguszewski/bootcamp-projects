@@ -37,8 +37,8 @@ li:last-child a {
 
 img {
     border-radius: 50%;
-    height: 75px;
-    margin-bottom: 100px;
+    height: 60px;
+    margin-bottom: 0px;
 }
 
 a {
@@ -109,7 +109,7 @@ header img {
     border-radius: 150px;
     width: auto;
     height: 300px;
-    outline: 1px solid white;
+    /* outline: 1px solid white; */
     outline-offset: 50px;
     margin-left: -150px;
 }
@@ -128,6 +128,7 @@ section#shop {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    
 }
 
 section#shop p {
@@ -151,4 +152,65 @@ h2 {
     font-family: Arial;
 }
 
+/*  */
+/* SECTION-ABOUT-US */
+/*  */
+
+section#about-us {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+section#about-us img {
+    border-radius: 0;
+    height: 500px;
+    width: 600px;
+    margin: 0;
+}
+
+section#about-us div {
+    margin: 80px;
+}
+
+section#about-us p.title-2 {
+    font-size: 20px;
+    text-transform: uppercase;
+    color:limegreen;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+section#about-us h2 {
+    text-transform: none;
+    font-weight: bold;
+    text-align: start;
+    color: darkblue;
+    font-family: Arial;
+    font-size: 40px;
+    margin: 10px 0;
+}
+
+section#about-us p {
+    color: dimgray;
+    margin: 10px 0;
+}
+
+section#about-us p.desc {
+    margin-bottom: 20px;
+}
+
+section#about-us ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    list-style: url(./iconmonstr-cook-4.jpg);
+    margin-left: 30px;
+}
+ 
+section#about-us li {
+    font-size: 24px;
+    font-weight: bold;
+}
 
