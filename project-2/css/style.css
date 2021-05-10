@@ -24,6 +24,7 @@ main {
 
 .logo-wrapper {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     padding: 5%;
 }
@@ -53,6 +54,21 @@ a.logo-wrapper {
     margin-left: 0%;
     margin-bottom: 30%;
     margin-top: 10%;
+}
+
+/* .dropdown-btn {
+    display: block;
+} */
+
+.dropdown-container {
+    display: none;
+    /* background-color: #262626; */
+    padding-left: 35%;
+}
+
+.dropdown-container a {
+    width: 100%;
+    text-align: left;
 }
 
 /* Header - Admin Bar */
