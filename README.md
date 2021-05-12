@@ -5,7 +5,7 @@
 - [Link to site-1 (main)](https://www.behance.net/gallery/117753031/Bookpet-Vet-Dashboard?tracking_source=search_projects_recommended%7Cadmin%20panel)
 - [Link to site-2 (optional)](https://www.behance.net/gallery/116480849/Rent-Me-Admin-Panel?tracking_source=search_projects_recommended%7Cadmin%20panel%20safely)
 - Tasks:
-  - [ ] HTML structure and position of elements;
-  - [ ] Navigation: Menu on sidebar;
-  - [ ] Header: Search and notifications bar, Information panel with switch buttons;
+  - [x] HTML structure and position of elements;
+  - [x] Navigation: Menu on sidebar;
+  - [x] Header: Search and notifications bar, Information panel with switch buttons;
   - [ ] Main: 4 sections - 3 graph and 1 table type.
