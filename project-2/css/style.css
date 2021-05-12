@@ -71,6 +71,99 @@ a.logo-wrapper {
     text-align: left;
 }
 
+/* Animatie the Whole Menu */
+.dropdown{
+   padding: 20px 40px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   color: white;
+   background: #C06162;
+   background: #34495e;
+   position: relative;
+   font-size: 18px;
+   perspective: 1000px;
+   z-index: 100}
+   .dropdown:hover{
+     background: #2980b9;
+     cursor: pointer}
+     
+   .dropdown:hover .dropdown_menu li{
+     display: block}
+
+.dropdown_menu {
+   position: absolute;
+   top: 100%;
+   left: 0;
+   width: 100%;
+   perspective: 1000px;
+   z-index: -1}
+    .dropdown_menu li{
+    display: none;
+    color: white;
+    background-color: #34495e;
+    padding: 10px 20px;
+    font-size: 16px;
+    opacity: 0}
+    .dropdown_menu li:hover{
+      background-color: #2980b9}
+
+    /* Menu as a whole animated */
+    .dropdown:hover .dropdown_menu--animated{
+      display: block}
+    .dropdown_menu--animated{
+      display: none}
+      .dropdown_menu--animated li{
+        display: block;
+        opacity: 1}
+
+    .dropdown_menu-7{
+    animation: rotateMenu 1000ms ease-in-out forwards;
+    transform-origin: top center}
+
+    @keyframes rotateMenu {
+        0% {
+            transform: rotateX(-90deg)
+        }
+        70% {
+            transform: rotateX(20deg) 
+        }
+        100% {
+            transform: rotateX(0deg) 
+        }
+    }
+    
+    /* Menu Items Animated Individually */
+    .dropdown_menu-2 .dropdown_item-1{
+       transform-origin: top center;
+       animation: rotateX 1000ms 60ms ease-in-out forwards}
+       .dropdown_menu-2 .dropdown_item-2{
+        transform-origin: top center;
+        animation: rotateX 1000ms 120ms ease-in-out forwards}
+        .dropdown_menu-2 .dropdown_item-3{
+            transform-origin: top center;
+            animation: rotateX 1000ms 180ms ease-in-out forwards}
+            .dropdown_menu-2 .dropdown_item-4{
+                transform-origin: top center;
+                animation: rotateX 1000ms 240ms ease-in-out forwards}
+                .dropdown_menu-2 .dropdown_item-5{
+                    transform-origin: top center;
+                    animation: rotateX 1000ms 300ms ease-in-out forwards}
+
+    @keyframes rotateX {
+    0% {
+        opacity: 0;
+        transform: rotateX(-90deg);
+    }
+    50% {
+        transform: rotateX(-20deg);
+    }
+    100% {
+        opacity: 1;
+        transform: rotateX(0deg);
+    }
+    }
+
 /* Header - Admin Bar */
 
 .admin-bar {
