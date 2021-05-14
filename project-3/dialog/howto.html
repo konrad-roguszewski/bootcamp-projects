@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      .modal {
+          display: none;
+      }
+
+      .show-modal {
+          display: block;
+      }
+
+      /* Cover */
+      .modal::before {   
+        position: fixed;
+        z-index: 0;
+        left: 0;
+        top: 0;
+        content: "";
+        width: 100%;
+        height: 100%;
+        background-color: rgba(71, 78, 93, 0.9);
+      }
+
+      /* Content */
+      .modal-content {
+        position: absolute;
+        width: 80%;
+        background-color: #fefefe;
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Trigger</p>
+
+    <div class="modal">
+      <div class="modal-content">
+        <button>X</button>
+        <h1>Paragraph</h1>
+        <p>Message</p>
+        </div>
+    </div>
+    <script>
+        const trigger = document.querySelector('p');
+        const modalElement = document.querySelector('.modal');
+        const exitBtn = document.querySelector('button')
+        trigger.addEventListener('click', function(){
+            modalElement.classList.add('show-modal')
+        });
+        exitBtn.addEventListener('click', function(){
+            modalElement.classList.remove('show-modal')
+        });
+        window.addEventListener('click', function(e){
+            if (e.target === modalElement) {
+                modalElement.classList.remove('show-modal')
+            }
+        })
+    </script>
+  </body>
+
+</html>
