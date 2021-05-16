@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      .modal {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgba(71, 78, 93, 0.75);
+        padding-top: 50px;
+      }
+
+      .modal-content {
+          position: relative;
+        background-color: #fefefe;
+        margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+        border: 1px solid #888;
+        width: 80%; /* Could be more or less, depending on screen size */
+      }
+
+      .close {
+        position: absolute;
+        right: 35px;
+        top: 15px;
+        font-size: 40px;
+        font-weight: bold;
+        color: #000000;
+      }
+    </style>
+  </head>
+  <body>
+    <p onclick="document.getElementById('id01').style.display='block'">
+      click to open the Dialog
+    </p>
+    <div id="id01" class="modal">
+      <form class="modal-content" action="/action_page.php">
+        <span
+          onclick="document.getElementById('id01').style.display='none'"
+          class="close"
+          title="Close Modal"
+          >×</span
+        >
+        <div class="container">
+          <h1>Tips</h1>
+          <p>This is a message</p>
+
+          <div class="clearfix">
+            <button
+              type="button"
+              onclick="document.getElementById('id01').style.display='none'"
+              class="cancelbtn"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onclick="document.getElementById('id01').style.display='none'"
+              class="deletebtn"
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
