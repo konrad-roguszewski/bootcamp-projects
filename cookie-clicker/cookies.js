@@ -5,16 +5,16 @@ let doughProgress = 0;
 
 const status = document.querySelector("#dough-status");
 const makeDought = document.querySelector("#make-dough");
-// const doughContainer = document.querySelector(".dough-container");
+const doughContainer = document.querySelector("#dough-container");
 // const doughBalls = document.querySelectorAll(".dough-ball");
 
-const doughBall = document.querySelector(".dough-ball");
+// const doughBall = document.querySelector(".dough-ball");
 
 // displayDoughAmount();
 displayFlourAmount();
 
 makeDought.addEventListener("click", handleDoughMakingStart);
-doughBall.addEventListener("click", handleDoughBallSize);
+doughContainer.addEventListener("click", handleDoughBallSize);
 // doughBalls.forEach(function (doughBall) {
 //     doughBall.addEventListener("click", handleDoughBallSize);
 //   });
@@ -75,16 +75,25 @@ function renderDoughBall() {
 //   doughBall.addEventListener("click", handleDoughBallSize);
 }
 
-function handleDoughBallSize() {
+function handleDoughBallSize(event) {
+  console.log('dough click')
 //   const doughBall = document.querySelector(".dough-ball");
-  let doughBallSize = 50;
+  if (!event.target.classList.contains('dough-ball')) {
+    return;
+  }
+  const doughBall = event.target
+
   const step = 5;
+
+  decreaseHandler();
+
   function setDoughBallSize(size) {
     doughBall.style.width = `${size}px`;
     doughBall.style.height = `${size}px`;
   }
-  doughBall.addEventListener("click", decreaseHandler);
+  // doughBall.addEventListener("click", decreaseHandler);
   function decreaseHandler() {
+    let doughBallSize = parseInt(doughBall.style.width);
     doughBallSize -= step;
     setDoughBallSize(doughBallSize);
   }
