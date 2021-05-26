@@ -1,0 +1,11 @@
+.status {
+  background-color: lightgrey;
+  width: 100px;
+  height: 15px;
+  margin-bottom: 15px;
+}
+
+.container {
+  height: 50px;
+  display: flex;
+}
