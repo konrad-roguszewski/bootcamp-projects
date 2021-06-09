@@ -5,10 +5,7 @@ const updateCity = async (city) => {
     const cityDetails = await getCity(city);
     const weather = await getWeather(cityDetails.Key);
 
-    return {
-        cityDetails: cityDetails,
-        weather: weather
-    };
+    return { cityDetails, weather };
 
 };
 
