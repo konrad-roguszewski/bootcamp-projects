@@ -12,3 +12,9 @@
   - [ ] Dropdown: Sub-menu's on sidebar elements, Animations.
 3. **project-3: Components** *(wip)*
 - [Dialog](https://element.eleme.io/#/en-US/component/dialog)
+4. **project-4: Weather App** *(completed)*
+
+- Simple application that lets user input a city name and by submitting it renders:
+  - day/night time,
+  - weather type,
+  - temperature.
