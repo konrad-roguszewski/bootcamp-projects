@@ -18,3 +18,6 @@
   - day/night time,
   - weather type,
   - temperature.
+5. **project-5: Live Chat** *(completed)*
+
+- A real-time chat application that lets user pick an alias, input a message in a chosen chatroom and by submitting it renders a list of all messages with usernames and timestamps.
