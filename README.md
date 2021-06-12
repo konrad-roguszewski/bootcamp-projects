@@ -21,3 +21,11 @@
 5. **project-5: Live Chat** *(completed)*
 
 - A real-time chat application that lets user pick an alias, input a message in a chosen chatroom and by submitting it renders a list of all messages with usernames and timestamps.
+
+6. **project-6: UI Library** *(completed)*
+
+- A small UI library that can be used in future projects, consisting of several components:
+  - tooltips,
+  - dropdowns,
+  - tabs,
+  - notifications.
