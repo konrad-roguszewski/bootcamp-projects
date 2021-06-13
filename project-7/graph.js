@@ -30,7 +30,10 @@ const update = (data) => {
         .data(pie(data));
 
     // handle the exit selection
-    paths.exit().remove();
+    paths.exit()
+        .transition().duration(750)
+        .attrTween('d', arcTweenExit)
+        .remove();
 
     // handle the current DOM path updates
     paths.attr('d', arcPath);
@@ -71,6 +74,15 @@ db.collection('expenses').onSnapshot(response => {
 
 const arcTweenEnter = (data) => {
     let interpolation = d3.interpolate(data.endAngle, data.startAngle);
+
+    return function(ticker){
+        data.startAngle = interpolation(ticker);
+        return arcPath(data);
+    };
+};
+
+const arcTweenExit = (data) => {
+    let interpolation = d3.interpolate(data.startAngle, data.endAngle);
 
     return function(ticker){
         data.startAngle = interpolation(ticker);
