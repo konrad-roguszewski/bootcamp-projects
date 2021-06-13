@@ -62,6 +62,11 @@ const update = (data) => {
         .each(function(data){ this._current = data })
         .transition().duration(750)
             .attrTween('d', arcTweenEnter);
+    
+    // add events
+    graph.selectAll('path')
+        .on('mouseover', handleMouseOver)
+        .on('mouseout', handleMouseOut);
 };
 
 // data array and firestore
@@ -116,4 +121,16 @@ function arcTweenUpdate(data){
     return function(timeTicker){
         return arcPath(interpolation(timeTicker));
     };
+};
+
+// event handlers
+const handleMouseOver = (event, datum) => {
+    d3.select(event.currentTarget)
+        .transition('changeSliceFill').duration(300)
+            .attr('fill', '#fff');
+};
+const handleMouseOut = (event, datum) => {
+    d3.select(event.currentTarget)
+        .transition('changeSliceFill').duration(300)
+            .attr('fill', color(datum.data.name));
 };
