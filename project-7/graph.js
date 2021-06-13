@@ -14,14 +14,35 @@ const pie = d3.pie()
     .value(data => data.cost);
     // the value we are evaluating to create the pie angles
 
-const angles = pie([
-    {name: '1', cost: 500},
-    {name: '2', cost: 300},
-    {name: '3', cost: 200}
-]);
-
 const arcPath = d3.arc()
     .outerRadius(dimensions.radius)
     .innerRadius(dimensions.radius / 2);
 
-console.log(arcPath(angles[0]))
+// update function
+const update = (data) => {
+    console.log(data);
+};
+
+// data array and firestore
+let data = [];
+
+db.collection('expenses').onSnapshot(response => {
+    response.docChanges().forEach(change => {
+        const doc = {...change.doc.data(), id: change.doc.id};
+        switch (change.type) {
+            case 'added':
+                data.push(doc);
+                break;
+            case 'modified':
+                const index = data.findIndex(item => item.id === doc.id);
+                data[index] = doc;
+                break;
+            case 'removed':
+                data = data.filter(item => item.id !== doc.id);
+                break;
+            default:
+                break;
+        };
+    });
+    update(data);
+});
