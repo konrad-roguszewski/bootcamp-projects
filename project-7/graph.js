@@ -66,7 +66,8 @@ const update = (data) => {
     // add events
     graph.selectAll('path')
         .on('mouseover', handleMouseOver)
-        .on('mouseout', handleMouseOut);
+        .on('mouseout', handleMouseOut)
+        .on('click', handleClick);
 };
 
 // data array and firestore
@@ -129,8 +130,14 @@ const handleMouseOver = (event, datum) => {
         .transition('changeSliceFill').duration(300)
             .attr('fill', '#fff');
 };
+
 const handleMouseOut = (event, datum) => {
     d3.select(event.currentTarget)
         .transition('changeSliceFill').duration(300)
             .attr('fill', color(datum.data.name));
+};
+
+const handleClick = (event, datum) => {
+    const id = datum.data.id;
+    db.collection('expenses').doc(id).delete();
 };
