@@ -29,3 +29,7 @@
   - dropdowns,
   - tabs,
   - notifications.
+
+7. **project-7: Budget Planner** *(completed)*
+
+- Money tracking application that allows the user to enter the name of an expense and its cost into a database. When submitted, it renders an animated pie chart that can be interacted with by hovering over the selected part to check its value or clicking to delete it. Chart animation reacts to real-time database changes.
