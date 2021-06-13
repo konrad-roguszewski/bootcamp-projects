@@ -18,8 +18,13 @@ const arcPath = d3.arc()
     .outerRadius(dimensions.radius)
     .innerRadius(dimensions.radius / 2);
 
+const color = d3.scaleOrdinal(d3['schemeSet3']);
+
 // update function
 const update = (data) => {
+    // update color scale domain
+    color.domain(data.map(item => item.name));
+
     // join enhanced (pie) data to path elements
     const paths = graph.selectAll('path')
         .data(pie(data));
@@ -29,7 +34,8 @@ const update = (data) => {
         .attr('class', 'arc')
         .attr('d', arcPath)
         .attr('stroke', '#fff')
-        .attr('stroke-width', 3);
+        .attr('stroke-width', 3)
+        .attr('fill', item => color(item.data.name));
 };
 
 // data array and firestore
