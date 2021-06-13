@@ -29,6 +29,15 @@ const legend = d3.legendColor()
     .shapePadding(10)
     .scale(color);
 
+const tip = d3.select('body')
+    .append('div')
+    .attr('class', 'tip')
+    .style('padding', '8px')
+    .style('position', 'absolute')
+    .style('left', 0)
+    .style('top', 0)
+    .style('visibility', 'hidden');
+
 // update function
 const update = (data) => {
     // update color scale domain
@@ -65,8 +74,21 @@ const update = (data) => {
     
     // add events
     graph.selectAll('path')
-        .on('mouseover', handleMouseOver)
-        .on('mouseout', handleMouseOut)
+        .on('mouseover', (event, datum) => {
+            let content = `<div class="name">${datum.data.name}</div>`;
+            content += `<div class="cost">${datum.data.cost} PLN</div>`;
+            content += `<div class="delete">Click slice to delete</div>`;
+            tip.html(content).style('visibility', 'visible');
+            handleMouseOver(event, datum);
+        })
+        .on('mouseout', (event, datum) => {
+            tip.style('visibility', 'hidden');
+            handleMouseOut(event, datum);
+        })
+        .on('mousemove', (event, datum) => {
+            // calculate the mouse's position relative the whole page by using event.pageX and event.pageY
+            tip.style('transform', `translate(${event.pageX}px, ${event.pageY}px`);
+        })
         .on('click', handleClick);
 };
 
