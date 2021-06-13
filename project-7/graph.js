@@ -33,6 +33,7 @@ const update = (data) => {
     paths.exit().remove();
 
     // handle the current DOM path updates
+    paths.attr('d', arcPath);
 
     paths.enter()
         .append('path')
