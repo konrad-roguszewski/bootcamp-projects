@@ -1,5 +1,7 @@
+import Signup from "./Signup";
+
 function App() {
-  return "React Auth"
+  return <Signup />
 }
 
 export default App;
