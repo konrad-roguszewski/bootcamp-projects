@@ -21,8 +21,8 @@ export default function Login() {
       history.push('/')
     } catch {
       setError('Failed to sign in')
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   return (
