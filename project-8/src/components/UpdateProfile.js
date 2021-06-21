@@ -36,8 +36,6 @@ export default function UpdateProfile() {
       })
       .catch(() => {
         setError('Failed to update account')
-      })
-      .finally(() => {
         setLoading(false)
       })
   }
