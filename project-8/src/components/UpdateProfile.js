@@ -14,23 +14,26 @@ export default function UpdateProfile() {
 
   function handleSubmit(e) {
     e.preventDefault()
-
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       return setError('Passwords do not match')
     }
-
     const promises = []
     setLoading(true)
     setError('')
-
     if (emailRef.current.value !== currentUser.email) {
-      promises.push(updateEmail(emailRef.current.value))
+      promises.push(() => updateEmail(emailRef.current.value))
     }
     if (passwordRef.current.value) {
-      promises.push(updatePassword(passwordRef.current.value))
+      promises.push(() => updatePassword(passwordRef.current.value))
     }
-
-    Promise.all(promises)
+    const runUpdates = (promises) => {
+      if (promises.length === 0) {
+        return Promise.resolve()
+      }
+      const [firstPromise, ...otherPromises] = promises
+      return firstPromise().then(() => runUpdates(otherPromises))
+    }
+    runUpdates(promises)
       .then(() => {
         history.push('/')
       })
