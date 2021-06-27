@@ -1,5 +1,6 @@
-import Profile from './authentication/Profile'
+import Dashboard from './google-drive/Dashboard'
 
+import Profile from './authentication/Profile'
 import Signup from './authentication/Signup'
 import Login from './authentication/Login'
 import PrivateRoute from './authentication/PrivateRoute'
@@ -14,7 +15,8 @@ function App() {
       <Router>
         <Switch>
           <AuthProvider>
-            {/* Google Drive */}
+            {/* Drive */}
+            <PrivateRoute exact path="/" component={Dashboard} />
 
             {/* Profile */}
             <PrivateRoute path="/user" component={Profile} />
