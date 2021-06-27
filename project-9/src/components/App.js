@@ -1,4 +1,4 @@
-import Dashboard from './google-drive/Dashboard'
+import Dashboard from './todo-app/Dashboard'
 
 import Profile from './authentication/Profile'
 import Signup from './authentication/Signup'
@@ -15,7 +15,7 @@ function App() {
       <Router>
         <Switch>
           <AuthProvider>
-            {/* Drive */}
+            {/* Todos */}
             <PrivateRoute exact path="/" component={Dashboard} />
 
             {/* Profile */}

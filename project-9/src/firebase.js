@@ -13,8 +13,8 @@ const app = firebase.initializeApp({
 
 const firestore = app.firestore()
 export const database = {
-    folders: firestore.collection('folders'),
-    files: firestore.collection('files'),
+
+    todos: firestore.collection('todos'),
     formatDoc: doc => {
         return {
             id: doc.id,

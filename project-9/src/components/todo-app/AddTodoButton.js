@@ -3,7 +3,7 @@ import { Button, Modal, Form } from 'react-bootstrap'
 import { database } from '../../firebase'
 import { useAuth } from '../../contexts/AuthContext'
 
-export default function AddFolderButton({ currentFolder }) {
+export default function AddTodoButton() {
   const [open, setOpen] = useState(false)
   const [name, setName] = useState("")
   const { currentUser } = useAuth()
@@ -19,12 +19,12 @@ export default function AddFolderButton({ currentFolder }) {
   function handleSubmit(e) {
     e.preventDefault()
 
-    if (currentFolder === null) return
+    // if (currentFolder === null) return
     // Create folder in database
 
-    database.folders.add({
+    database.todos.add({
       name: name,
-      parentId: currentFolder.id,
+      // parentId: currentFolder.id,
       userId: currentUser.uid,
       // path,
       createdAt: database.getCurrentTimestamp(),
@@ -36,13 +36,13 @@ export default function AddFolderButton({ currentFolder }) {
   return (
     <>
       <Button onClick={openModal} variant="outline-success" size="small">
-        Add Folder
+        Add Todo
       </Button>
       <Modal show={open} onHide={closeModal}>
         <Form onSubmit={handleSubmit}>
           <Modal.Body>
             <Form.Group>
-              <Form.Label>Folder Name</Form.Label>
+              <Form.Label>Todo Name</Form.Label>
               <Form.Control
                 type="text"
                 required
@@ -53,7 +53,7 @@ export default function AddFolderButton({ currentFolder }) {
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={closeModal}>Close</Button>
-            <Button variant="success" type="submit">Add Folder</Button>
+            <Button variant="success" type="submit">Add Todo</Button>
           </Modal.Footer>
         </Form>
       </Modal>
