@@ -3,14 +3,18 @@ import React from 'react'
 import { database } from "../../firebase"
 import { useEffect, useState } from 'react';
 import { TodoInput } from './TodoInput';
+import { useAuth } from '../../contexts/AuthContext'
 
 export default function TodoList() {
 
   const [todos, setTodos] = useState([])
   const [newTodoName, setNewTodoName] = useState()
+  const { currentUser } = useAuth()
 
   useEffect(() => {
-    const unsubscribe = database.todos.onSnapshot((snapshot) => {
+    const unsubscribe = database.todos
+      .where('userId', '==', currentUser.uid)
+      .onSnapshot((snapshot) => {
         const todoData = []
         snapshot.forEach(doc => todoData.push({
             ...doc.data(),
@@ -20,11 +24,13 @@ export default function TodoList() {
         setTodos(todoData);
       });
     return unsubscribe;
-  }, []);
+  }, [currentUser.uid]);
 
   const onCreate = () => {
     database.todos.add({
-      name: newTodoName
+      name: newTodoName,
+      userId: currentUser.uid,
+      createdAt: database.getCurrentTimestamp(),
     })
   }
 
