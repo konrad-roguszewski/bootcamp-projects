@@ -19,7 +19,7 @@ export const TodoInput = ({ todo }) => {
     <>
       <input
         value={name}
-        onChange={(e) => {setName(e.target.value)}}
+        onChange={(e) => {setName(parseInt(e.target.value))}}
       />
       <button onClick={onUpdate}>Update</button>
       <button onClick={onDelete}>Delete</button>

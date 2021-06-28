@@ -1,4 +1,4 @@
-import Dashboard from './todo-app/Dashboard'
+import Dashboard from './app/Dashboard'
 
 import Profile from './authentication/Profile'
 import Signup from './authentication/Signup'

@@ -9,22 +9,6 @@ import TodoList from './TodoList'
 
 export default function Dashboard() {
 
-  // const [todos, setTodos] = useState([]);
-  // const { currentUser } = useAuth()
-
-  // useEffect(() => {
-  //   database.todos
-  //     .doc()
-  //     .get()
-  //     .then(doc => {
-  //       // setTodos(doc.data())
-  //       // console.log(database.formatDoc(doc))
-  //     })
-  //     .catch(err => {
-  //       console.log(err)
-  //     })
-  // }, [])
-
   return (
     <>
       <Navbar />

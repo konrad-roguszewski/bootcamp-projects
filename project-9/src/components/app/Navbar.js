@@ -10,7 +10,7 @@ export default function NavbarComponent() {
   return (
     <Navbar bg="light" expand="sm">
       <Navbar.Brand as={Link} to="/">
-        Todo App
+        Test App
       </Navbar.Brand>
         <span>Welcome: {currentUser.email}</span>
       <Nav>

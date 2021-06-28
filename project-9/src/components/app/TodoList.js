@@ -28,15 +28,27 @@ export default function TodoList() {
 
   const onCreate = () => {
     database.todos.add({
-      name: newTodoName,
+      name: parseInt(newTodoName),
       userId: currentUser.uid,
       createdAt: database.getCurrentTimestamp(),
     })
+    setNewTodoName('')
   }
+
+  const userRecords = todos.map(todo => todo.name)
+  const userBalance = userRecords.reduce((a, c) => a + c, 0)
+
+  console.log(userRecords)
 
   return (
     <ul>
-      <input value={newTodoName} onChange={(e) => {setNewTodoName(e.target.value)}}/>
+      <input type="date"></input>
+      <h2>Balance: {userBalance}</h2>
+      <input
+        value={newTodoName}
+        onChange={(e) => {setNewTodoName(e.target.value)}}
+        placeholder="Add value"
+      />
       <button onClick={onCreate}>Create</button>
       {todos.map(todo => (
         <li key={todo.id}>
