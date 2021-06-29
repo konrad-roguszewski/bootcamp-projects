@@ -38,11 +38,8 @@ export default function TodoList() {
   const userRecords = todos.map(todo => todo.name)
   const userBalance = userRecords.reduce((a, c) => a + c, 0)
 
-  console.log(userRecords)
-
   return (
     <ul>
-      <input type="date"></input>
       <h2>Balance: {userBalance}</h2>
       <input
         value={newTodoName}
