@@ -3,6 +3,7 @@ import { CreateTodo } from './CreateTodo'
 import { TodoList } from './TodoList'
 import { useAuth } from '../../../contexts/AuthContext'
 import { database } from "../../../firebase"
+import SampleChart from './SampleChart';
 
 export const UserContent = () => {
 
@@ -38,6 +39,7 @@ export const UserContent = () => {
       <footer>
         <p>Double-click to edit</p>
       </footer>
+      <SampleChart todos={todos}/>
     </main>
   )
 }
