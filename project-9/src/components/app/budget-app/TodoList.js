@@ -1,18 +1,29 @@
 import React from 'react'
 import { Todo } from './Todo'
+import { useAuth } from '../../../contexts/AuthContext'
+import { database } from "../../../firebase"
 
 export const TodoList = () => {
+  const { currentUser } = useAuth()
 
   const sampleTodos = [
     {
       id: 1,
-      content: 'Wynieść śmieci',
-      isCompleted: false,
+      userId: currentUser.uid,
+      createdAt: database.getCurrentTimestamp(),
+      date: "2021-06-28",
+      value: "50",
+      note: "taxi",
+      category: "2",
     },
     {
       id: 2,
-      content: 'Zjeść śniadanie',
-      isCompleted: false,
+      userId: currentUser.uid,
+      createdAt: database.getCurrentTimestamp(),
+      date: "2021-06-29",
+      value: "100",
+      note: "restaurant",
+      category: "1",
     },
   ];
 
