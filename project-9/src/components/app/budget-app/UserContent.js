@@ -11,7 +11,7 @@ export const UserContent = () => {
 
   useEffect(() => {
     const unsubscribe = database.todos
-      // .where('userId', '==', currentUser.uid)
+      .where('userId', '==', currentUser.uid)
       .onSnapshot((snapshot) => {
         const todoData = []
         snapshot.forEach(doc => todoData.push({

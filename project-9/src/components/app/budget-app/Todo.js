@@ -40,7 +40,7 @@ export const Todo = ({ todo }) => {
       <Input
         type="text"
         placeholder="Value"
-        defaultValue={todo.value}
+        defaultValue={todo.amount}
         disabled
       />
       <button>x</button>
