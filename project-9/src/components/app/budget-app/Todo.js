@@ -17,6 +17,7 @@ export const Todo = ({ todo }) => {
       <select
         value={todo.category}
         onChange={() => {}}
+        disabled
       >
         <option value="0" disabled>
           --Category--
@@ -25,9 +26,23 @@ export const Todo = ({ todo }) => {
         <option value="2">Transport</option>
         <option value="3">Accommodation</option>
       </select>
-      <Input type="text" placeholder="Note" defaultValue={todo.note} />
-      <input type="date" defaultValue={todo.date} />
-      <Input type="text" placeholder="Value" defaultValue={todo.value} />
+      <Input
+        type="text"
+        placeholder="Note"
+        defaultValue={todo.note}
+        disabled
+      />
+      <input
+        type="date"
+        defaultValue={todo.date}
+        disabled
+      />
+      <Input
+        type="text"
+        placeholder="Value"
+        defaultValue={todo.value}
+        disabled
+      />
       <button>x</button>
     </Entry>
   )

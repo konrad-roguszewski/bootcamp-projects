@@ -1,8 +1,29 @@
-import React from 'react'
+import { useEffect, useState } from 'react';
 import { CreateTodo } from './CreateTodo'
 import { TodoList } from './TodoList'
+import { useAuth } from '../../../contexts/AuthContext'
+import { database } from "../../../firebase"
 
 export const UserContent = () => {
+
+  const [todos, setTodos] = useState([]);
+  const { currentUser } = useAuth()
+
+  useEffect(() => {
+    const unsubscribe = database.todos
+      // .where('userId', '==', currentUser.uid)
+      .onSnapshot((snapshot) => {
+        const todoData = []
+        snapshot.forEach(doc => todoData.push({
+            ...doc.data(),
+            id: doc.id,
+          })
+        );
+        setTodos(todoData);
+      });
+    return unsubscribe;
+  }, [currentUser.uid]);
+
   return (
     <main className="App">
       <header className="App-header">
@@ -10,7 +31,7 @@ export const UserContent = () => {
       </header>
       <CreateTodo />
       <h3>Budget:</h3>
-      <TodoList />
+      <TodoList todos={todos} />
       <footer className="App-footer">
         <p>Double-click to edit</p>
       </footer>
