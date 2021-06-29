@@ -12,7 +12,7 @@ export const CreateTodo = () => {
   const [option, setOption] = useState("0")
   const { currentUser } = useAuth()
 
-  const handleSubmit = (e) => {
+  const handleCreate = (e) => {
     e.preventDefault()
 
     database.todos.add({
@@ -26,8 +26,8 @@ export const CreateTodo = () => {
   }
 
   return (
-    <section className="CreateTodo">
-      <Form onSubmit={handleSubmit}>
+    <section>
+      <Form onSubmit={handleCreate}>
         <input
           type="date"
           name="date"

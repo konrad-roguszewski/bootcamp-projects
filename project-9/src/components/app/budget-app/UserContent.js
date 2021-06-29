@@ -24,15 +24,18 @@ export const UserContent = () => {
     return unsubscribe;
   }, [currentUser.uid]);
 
+  const userRecords = todos.map(todo => todo.amount)
+  const userBalance = userRecords.reduce((a, c) => a + c, 0)
+
   return (
-    <main className="App">
-      <header className="App-header">
+    <main>
+      <header>
         <h3>New Entry</h3>
       </header>
       <CreateTodo />
-      <h3>Budget:</h3>
+      <h3>Balance: {userBalance} PLN</h3>
       <TodoList todos={todos} />
-      <footer className="App-footer">
+      <footer>
         <p>Double-click to edit</p>
       </footer>
     </main>

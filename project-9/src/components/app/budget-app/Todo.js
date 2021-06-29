@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import styled from 'styled-components'
+import { database } from "../../../firebase"
 
 const Entry = styled.li`
   display: flex;
@@ -10,14 +11,84 @@ const Input = styled.input`
 `
 
 export const Todo = ({ todo }) => {
-  const [options, setOptions] = useState('0')
+  const [category, setCategory] = useState(todo.category)
+  const [note, setNote] = useState(todo.note)
+  const [date, setDate] = useState(todo.date)
+  const [amount, setAmount] = useState(todo.amount)
+  const noteContent = useRef();
+  const amountContent = useRef();
+  const dateContent = useRef();
+
+  const onCategoryUpdate = (e) => {
+    database.todos.doc(todo.id).set({
+      ...todo,
+      category,
+    })
+    
+  }
+
+  const onNoteUpdate = (e) => {
+    database.todos.doc(todo.id).set({
+      ...todo,
+      note,
+    })
+    if (e.key === 'Enter'){
+      toggleInputState(noteContent)
+    }
+  }
+
+  const onDateUpdate = (e) => {
+    database.todos.doc(todo.id).set({
+      ...todo,
+      date,
+    })
+    if (e.key === 'Enter'){
+      // toggleTodoState()
+      console.log("date changed: " + todo.id)
+    }
+    // setDate(e.target.value)
+
+  }
+
+  const onAmountUpdate = (e) => {
+    database.todos.doc(todo.id).set({
+      ...todo,
+      amount,
+    })
+    if (e.key === 'Enter'){
+      toggleInputState(amountContent)
+    }
+  }
+
+  const onDelete = (e) => {
+    database.todos.doc(todo.id).delete()
+  }
+
+  // const toggleNoteState = () => {
+  //   noteContent.current.disabled = !noteContent.current.disabled;
+  //   noteContent.current.focus();
+  // };
+
+  const toggleInputState = (content) => {
+    content.current.disabled = !content.current.disabled;
+    content.current.focus();
+  };
+
+  // console.log(category)
+  // console.log(noteContent)
 
   return (
-    <Entry className="Todo">
+    <Entry
+      // onDoubleClick={toggleNoteState}
+    >
       <select
-        value={todo.category}
-        onChange={() => {}}
-        disabled
+        value={category}
+        onChange={(e) => {setCategory(e.target.value)}}
+        // onChange={(e) => onCategoryUpdate(e)}
+
+        // disabled
+
+        onKeyDown={e => onCategoryUpdate(e)}
       >
         <option value="0" disabled>
           --Category--
@@ -29,21 +100,36 @@ export const Todo = ({ todo }) => {
       <Input
         type="text"
         placeholder="Note"
-        defaultValue={todo.note}
-        disabled
+        value={note}
+        onChange={(e) => {setNote(e.target.value)}}
+        // disabled
+
+        onKeyDown={e => onNoteUpdate(e)}
+        ref={noteContent}
+        onDoubleClick={() => toggleInputState(noteContent)}
       />
       <input
         type="date"
-        defaultValue={todo.date}
-        disabled
+        value={date}
+        onChange={(e) => {setDate(e.target.value)}}
+        // disabled
+
+        onKeyDown={e => onDateUpdate(e)}
+        ref={dateContent}
+        onDoubleClick={() => toggleInputState(dateContent)}
       />
       <Input
         type="text"
-        placeholder="Value"
-        defaultValue={todo.amount}
-        disabled
+        placeholder="Amount"
+        value={amount}
+        onChange={(e) => {setAmount((parseInt(e.target.value)))}}
+        // disabled
+
+        onKeyDown={e => onAmountUpdate(e)}
+        ref={amountContent}
+        onDoubleClick={() => toggleInputState(amountContent)}
       />
-      <button>x</button>
+      <button onClick={onDelete}>x</button>
     </Entry>
   )
 }
