@@ -7,15 +7,20 @@ fetch("photos.json")
     showSlides(slideIndex);
   })
   .catch(function (error) {
-    console.log("error: " + error);
+    console.error("error: " + error);
   });
 
 const slides = document.getElementsByClassName("mySlides");
 const sectionElement = document.getElementById("slider");
 sectionElement.addEventListener("click", handleClickBtnNext);
 sectionElement.addEventListener("click", handleClickBtnPrev);
+sectionElement.addEventListener("click", handleClickBtnImgNum);
 
 function appendData(data) {
+  const btnContainer = document.createElement("div");
+  btnContainer.classList.add('btn-container');
+  sectionElement.appendChild(btnContainer);
+
   data.forEach(dataElement => {
     const containerElement = document.createElement("div");
     containerElement.classList.add('mySlides');
@@ -29,14 +34,20 @@ function appendData(data) {
     noteElement.classList.add('text');
     noteElement.innerText = `"${dataElement.caption}" by ${dataElement.author}`;
     containerElement.appendChild(noteElement);
-  });
 
+    const imgNumBtn = document.createElement("button");
+    imgNumBtn.innerText = `${dataElement.id}`;
+    imgNumBtn.classList.add('img-num');
+    imgNumBtn.setAttribute("data-id", dataElement.id);
+    btnContainer.appendChild(imgNumBtn);
+  });
+   
   const prevBtnElement = document.createElement("button");
   prevBtnElement.innerText = "poprzednie";
   prevBtnElement.classList.add('prev');
   prevBtnElement.setAttribute("disabled", "")
   sectionElement.appendChild(prevBtnElement);
-
+  
   const nextBtnElement = document.createElement("button");
   nextBtnElement.innerText = "następne";
   nextBtnElement.classList.add('next');
@@ -47,6 +58,12 @@ let slideIndex = 1;
 
 function changeSlides(n) {
   let newIndex = slideIndex += n;
+  handleDisabledBtn(newIndex);
+  showSlides(newIndex);
+};
+
+function currentSlide(n) {
+  let newIndex = slideIndex = n;
   handleDisabledBtn(newIndex);
   showSlides(newIndex);
 };
@@ -76,6 +93,14 @@ function handleClickBtnPrev(event) {
   changeSlides(-1);
 };
 
+function handleClickBtnImgNum(event) {
+  if (!event.target.classList.contains('img-num')){
+    return;
+  };
+  const id = parseInt(event.target.dataset.id);
+  currentSlide(id);
+};
+    
 function handleDisabledBtn(newIndex) {
   const nextBtnElement = document.querySelector(".next");
   const prevBtnElement = document.querySelector(".prev");
@@ -85,5 +110,5 @@ function handleDisabledBtn(newIndex) {
     nextBtnElement.disabled = true;
   } else if (newIndex === 1) {
     prevBtnElement.disabled = true;
-  }
-}
+  };
+};
