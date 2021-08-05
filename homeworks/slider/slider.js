@@ -15,6 +15,7 @@ const sectionElement = document.getElementById("slider");
 sectionElement.addEventListener("click", handleClickBtnNext);
 sectionElement.addEventListener("click", handleClickBtnPrev);
 sectionElement.addEventListener("click", handleClickBtnImgNum);
+sectionElement.addEventListener("click", handleClickImg);
 
 function appendData(data) {
   const btnContainer = document.createElement("div");
@@ -27,6 +28,7 @@ function appendData(data) {
     sectionElement.appendChild(containerElement);
 
     const imageElement = document.createElement("img");
+    imageElement.classList.add('photo');
     imageElement.src = dataElement.url;
     containerElement.appendChild(imageElement);
 
@@ -90,6 +92,7 @@ function handleClickBtnNext(event) {
     return;
   };
   changeSlides(1);
+  clearTimeout(timer);
 };
 
 function handleClickBtnPrev(event) {
@@ -97,6 +100,7 @@ function handleClickBtnPrev(event) {
     return;
   };
   changeSlides(-1);
+  clearTimeout(timer);
 };
 
 function handleClickBtnImgNum(event) {
@@ -105,6 +109,14 @@ function handleClickBtnImgNum(event) {
   };
   const id = parseInt(event.target.dataset.id);
   currentSlide(id);
+  clearTimeout(timer);
+};
+
+function handleClickImg(event) {
+  if (!event.target.classList.contains('photo')){
+    return;
+  };
+  clearTimeout(timer);
 };
     
 function handleDisabledBtn(newIndex) {
