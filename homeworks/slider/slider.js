@@ -12,7 +12,8 @@ fetch("photos.json")
 
 const slides = document.getElementsByClassName("mySlides");
 const sectionElement = document.getElementById("slider");
-sectionElement.addEventListener("click", handleClickNextBtn);
+sectionElement.addEventListener("click", handleClickBtnNext);
+sectionElement.addEventListener("click", handleClickBtnPrev);
 
 function appendData(data) {
   data.forEach(dataElement => {
@@ -61,11 +62,18 @@ function showSlides(n) {
   slides[slideIndex-1].style.display = "block";
 };
 
-function handleClickNextBtn(event) {
+function handleClickBtnNext(event) {
   if (!event.target.classList.contains('next')){
     return;
   };
   changeSlides(1);
+};
+
+function handleClickBtnPrev(event) {
+  if (!event.target.classList.contains('prev')){
+    return;
+  };
+  changeSlides(-1);
 };
 
 function handleDisabledBtn(newIndex) {
