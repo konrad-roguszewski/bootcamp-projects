@@ -11,10 +11,14 @@ fetch("photos.json")
 
 function appendData(data) {
   const sectionElement = document.getElementById("slider");
-
+  
   data.forEach(dataElement => {
     const imageElement = document.createElement("img");
     imageElement.src = dataElement.url;
     sectionElement.appendChild(imageElement);
+
+    const noteElement = document.createElement("p");
+    noteElement.innerText = `Autor: ${dataElement.author}, Opis: ${dataElement.caption}`;
+    sectionElement.appendChild(noteElement);
   });
 };
