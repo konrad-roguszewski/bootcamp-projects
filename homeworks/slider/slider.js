@@ -10,6 +10,7 @@ fetch("photos.json")
     console.log("error: " + error);
   });
 
+const slides = document.getElementsByClassName("mySlides");
 const sectionElement = document.getElementById("slider");
 sectionElement.addEventListener("click", handleClickNextBtn);
 
@@ -29,6 +30,12 @@ function appendData(data) {
     containerElement.appendChild(noteElement);
   });
 
+  const prevBtnElement = document.createElement("button");
+  prevBtnElement.innerText = "poprzednie";
+  prevBtnElement.classList.add('prev');
+  prevBtnElement.setAttribute("disabled", "")
+  sectionElement.appendChild(prevBtnElement);
+
   const nextBtnElement = document.createElement("button");
   nextBtnElement.innerText = "następne";
   nextBtnElement.classList.add('next');
@@ -37,12 +44,18 @@ function appendData(data) {
 
 let slideIndex = 1;
 
+function changeSlides(n) {
+  let newIndex = slideIndex += n;
+  handleDisabledBtn(newIndex);
+  showSlides(newIndex);
+};
+
 function showSlides(n) {
-  const slides = document.getElementsByClassName("mySlides");
-  const nextBtnElement = document.querySelector(".next");
-  if (n >= slides.length) {
+  if (n > slides.length) {
+    slideIndex = 1;
+  };
+  if (n < 1) {
     slideIndex = slides.length;
-    nextBtnElement.setAttribute("disabled", "");
   };
   [...slides].forEach(slide => slide.style.display = "none");
   slides[slideIndex-1].style.display = "block";
@@ -52,5 +65,17 @@ function handleClickNextBtn(event) {
   if (!event.target.classList.contains('next')){
     return;
   };
-  showSlides(slideIndex += 1);
+  changeSlides(1);
 };
+
+function handleDisabledBtn(newIndex) {
+  const nextBtnElement = document.querySelector(".next");
+  const prevBtnElement = document.querySelector(".prev");
+  prevBtnElement.disabled = false;
+  nextBtnElement.disabled = false;
+  if (newIndex === slides.length) {
+    nextBtnElement.disabled = true;
+  } else if (newIndex === 1) {
+    prevBtnElement.disabled = true;
+  }
+}
