@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "caption": "The forest and mountains",
+    "url": "https://picsum.photos/id/10/500/500",
+    "author": "Paul Jarvis"
+  },
+  {
+    "id": 2,
+    "caption": "Bears",
+    "url": "https://picsum.photos/id/1020/500/500",
+    "author": "Adam Willoughby-Knox"
+  },
+  {
+    "id": 3,
+    "caption": "To be a programmer coding you must. ~ Master Pugyoda",
+    "url": "https://picsum.photos/id/1025/500/500",
+    "author": "Matthew Wiebe"
+  },
+  {
+    "id": 4,
+    "caption": "The castle",
+    "url": "https://picsum.photos/id/1040/500/500",
+    "author": "Rachel Davis"
+  },
+  {
+    "id": 5,
+    "caption": "It's coffee time",
+    "url": "https://picsum.photos/id/1060/500/500",
+    "author": "Karl Fredrickson"
+  }
+]
