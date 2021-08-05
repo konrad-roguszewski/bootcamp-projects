@@ -4,7 +4,7 @@ fetch("photos.json")
   })
   .then(function (data) {
     appendData(data);
-    showSlides(slideIndex);
+    showSlides();
   })
   .catch(function (error) {
     console.error("error: " + error);
@@ -47,36 +47,42 @@ function appendData(data) {
   prevBtnElement.classList.add('prev');
   prevBtnElement.setAttribute("disabled", "")
   sectionElement.appendChild(prevBtnElement);
-  
+
   const nextBtnElement = document.createElement("button");
   nextBtnElement.innerText = "następne";
   nextBtnElement.classList.add('next');
   sectionElement.appendChild(nextBtnElement);
 };
 
-let slideIndex = 1;
+let slideIndex = 0;
+let timer;
 
-function changeSlides(n) {
-  let newIndex = slideIndex += n;
-  handleDisabledBtn(newIndex);
-  showSlides(newIndex);
+function showSlides() {
+  [...slides].forEach(slide => slide.style.display = "none");
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1};
+  slides[slideIndex-1].style.display = "block";
+  timer = setTimeout(showSlides, 3000);
+  if (slideIndex === slides.length) {clearTimeout(timer)};
+  handleDisabledBtn(slideIndex);
 };
 
-function currentSlide(n) {
-  let newIndex = slideIndex = n;
-  handleDisabledBtn(newIndex);
-  showSlides(newIndex);
-};
-
-function showSlides(n) {
-  if (n > slides.length) {
-    slideIndex = 1;
-  };
-  if (n < 1) {
-    slideIndex = slides.length;
-  };
+function changeSlides(position) {
+  slideIndex += position;
+  if (slideIndex > slides.length) {slideIndex = 1}
+  else if(slideIndex < 1){slideIndex = slides.length};
   [...slides].forEach(slide => slide.style.display = "none");
   slides[slideIndex-1].style.display = "block";
+  handleDisabledBtn(slideIndex);
+};
+
+function currentSlide(index) {
+  if (index> slides.length) {index = 1}
+  else if(index < 1){index = slides.length}
+  slideIndex = index;
+  [...slides].forEach(slide => slide.style.display = "none");
+  slides[index-1].style.display = "block";
+  handleDisabledBtn(slideIndex);
 };
 
 function handleClickBtnNext(event) {
