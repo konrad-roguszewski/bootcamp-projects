@@ -22,7 +22,7 @@ function appendData(data) {
     const imageElement = document.createElement("img");
     imageElement.src = dataElement.url;
     containerElement.appendChild(imageElement);
-    
+
     const noteElement = document.createElement("p");
     noteElement.classList.add('text');
     noteElement.innerText = `"${dataElement.caption}" by ${dataElement.author}`;
@@ -39,7 +39,11 @@ let slideIndex = 1;
 
 function showSlides(n) {
   const slides = document.getElementsByClassName("mySlides");
-  if (n > 2) {slideIndex = 1};
+  const nextBtnElement = document.querySelector(".next");
+  if (n >= slides.length) {
+    slideIndex = slides.length;
+    nextBtnElement.setAttribute("disabled", "");
+  };
   [...slides].forEach(slide => slide.style.display = "none");
   slides[slideIndex-1].style.display = "block";
 };
