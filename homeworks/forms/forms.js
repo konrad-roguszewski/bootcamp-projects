@@ -7,6 +7,9 @@ loginForm.addEventListener('submit', (e) => {
 
 loginUser();
 
+const logoutBtn = document.getElementById('sign-out-btn');
+logoutBtn.addEventListener('click', logoutUser);
+
 function userRegistration() {
     const userData = {
         email: document.getElementById('email-input').value,
@@ -48,4 +51,9 @@ function loginUser() {
       loginForm.style = {};
       // emailField.textContent = 'No user';
   };
+};
+
+function logoutUser() {
+  sessionStorage.removeItem('UsersLogin');
+  window.location.reload();
 };
