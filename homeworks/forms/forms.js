@@ -1,51 +1,86 @@
 const loginForm = document.getElementById('login-form');
 const emailInput = document.getElementById('email-input');
-const passwordInput = document.getElementById('password-input');
-
+const passInput = document.getElementById('password-input');
+const loginDiv = document.getElementById('login-panel');
+const signUpBtn = document.getElementById('sign-up-button');
 const emailSpan = document.getElementById('user-email');
 const contentDiv = document.getElementById('content');
+const logoutBtn = document.getElementById('sign-out-btn');
 
 loginForm.addEventListener('submit', function(e) {
   e.preventDefault();
-  loginAndRegisterUser();
+  loginUser();
 });
 
+signUpBtn.addEventListener('click', function() {
+  checkRegistrationStatus();
+});
+
+logoutBtn.addEventListener('click', logoutUser);
+
 function setCurrentUser(email) {
-  sessionStorage.setItem('CurrentUser', JSON.stringify(email));
+    sessionStorage.setItem('CurrentUser', JSON.stringify(email));
 };
 
 function registerUser(email, password) {
   let storedUsers = localStorage.UsersLogin ? JSON.parse(localStorage.UsersLogin) : [];
-  const userData = {
-      email,
-      password,
+  if (email !== '' && password !== '') {
+      const userData = {
+          email,
+          password,
+      };
+      storedUsers.push(userData);
+      localStorage.setItem('UsersLogin', JSON.stringify(storedUsers));
   };
-  storedUsers.push(userData);
-  localStorage.setItem('UsersLogin', JSON.stringify(storedUsers));
 };
 
-function loginAndRegisterUser() {
-  const loginEmail = document.getElementById('email-input').value
-  const loginPass = document.getElementById('password-input').value
+function checkRegistrationStatus() {
+  const loginEmail = emailInput.value;
+  const loginPass = passInput.value;
+  if (localStorage.getItem('UsersLogin')) {
+      const allStoredUsers = JSON.parse(localStorage.getItem('UsersLogin'));
+      const matchedUser = allStoredUsers.filter(user => {
+          return loginEmail === user.email;
+      })
+      if (matchedUser.length) {
+          window.alert('Takie konto już istnieje');
+      } else {
+          registerUser(loginEmail, loginPass);
+          if (loginEmail === ''){
+              window.alert('Wrong input');
+          } else {
+              window.alert('New user registered');
+          }
+      }
+  } else {
+      registerUser(loginEmail, loginPass);
+      if (loginEmail === ''){
+          window.alert('Wrong input');
+      } else {
+          window.alert('First user registered');
+      }
+  };
+  window.location.reload();
+};
+
+function loginUser() {
+  const loginEmail = emailInput.value;
+  const loginPass = passInput.value;
   if (localStorage.getItem('UsersLogin')) {
       const allStoredUsers = JSON.parse(localStorage.getItem('UsersLogin'));
       const matchedUser = allStoredUsers.filter(user => {
           return loginEmail === user.email && loginPass === user.password;
       })
       if (matchedUser.length) {
-        // window.alert('Login successful');
-        setCurrentUser(loginEmail);
-    } else {
-        // window.alert('Wrong credentials or new user');
-        registerUser(loginEmail, loginPass);
-        setCurrentUser(loginEmail);
-    }
+          setCurrentUser(loginEmail);
+          window.alert('Login successful');
+      } else {
+          window.alert('Wrong credentials');
+      }
   } else {
-    // window.alert('Not a registered user');
-    registerUser(loginEmail, loginPass);
-    setCurrentUser(loginEmail);
-};
-window.location.reload();
+      window.alert('Not a registered user');
+  };
+  window.location.reload();
 };
 
 function checkUserStatus() {
@@ -57,33 +92,32 @@ function checkUserStatus() {
   };
 };
 
-checkUserStatus();
-
 function renderForm() {
   content.style.display = 'none';
-  loginForm.style = {};
+  loginDiv.style = {};      
 };
 
 function renderUserContent(email) {
-  loginForm.style.display = 'none';
+  loginDiv.style.display = 'none';
   contentDiv.style = {};
   emailSpan.textContent = `Użytkownik ${email} został automatycznie zalogowany`;
 };
 
-const logoutBtn = document.getElementById('sign-out-btn');
-logoutBtn.addEventListener('click', logoutUser);
-
 function logoutUser() {
-    sessionStorage.removeItem('CurrentUser');
-    window.location.reload();
+  sessionStorage.removeItem('CurrentUser');
+  window.location.reload();
 };
+
+checkUserStatus();
 
 // >>> NOTES <<<
 
-const noteForm = document.getElementById('note-form');
+const noteForm = document.getElementById('note-form');  
 const noteInput = document.getElementById('note-input');
 const noteList = document.getElementById('note-list');
+
 let notes = [];
+
 noteForm.addEventListener('submit', function(e) {
     e.preventDefault();
     addNote(noteInput.value);
@@ -92,16 +126,16 @@ noteForm.addEventListener('submit', function(e) {
 function addNote(item) {
   const reference = JSON.parse(sessionStorage.getItem('CurrentUser'));
   if (item !== '') {
-    const note = {
-        id: Date.now(),
-        name: item,
-        author: reference,
-    };
-    notes.push(note);
-    const sortedNotes = notes.slice().sort((a, b) => b.id - a.id);
-    addNotesToLocalStorage(sortedNotes);
-    noteInput.value = '';
-};
+      const note = {
+          id: Date.now(),
+          name: item,
+          author: reference,
+      };
+      notes.push(note);
+      const sortedNotes = notes.slice().sort((a, b) => b.id - a.id);
+      addNotesToLocalStorage(sortedNotes);
+      noteInput.value = '';
+  };
 };
 
 function renderNotes(notes) {
