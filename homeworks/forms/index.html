@@ -5,15 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script src="forms.js" type="module"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-auth.js"></script>
+    <script src="forms-fb.js" type="module"></script>
+    <style>
+      .login-panel {
+        display: flex;
+      }
+    </style>
   </head>
   <body>
-    <form id="login-form">
-      <input id="email-input" type="email" name="email" placeholder="e-mail" />
-      <input id="password-input" type="password" name="password" placeholder="hasło" />
-      <button id="sign-up-button">zarejestruj</button>
-      <!-- <button id="sign-in-button">zaloguj</button> -->
-    </form>
+    <div id="login-panel" class="login-panel">
+      <form id="login-form">
+        <input id="email-input" type="email" name="email" placeholder="e-mail" />
+        <input id="password-input" type="password" name="password" placeholder="hasło" />
+        <button id="sign-in-button">zaloguj</button>
+      </form>
+        <button id="sign-up-button">zarejestruj</button>
+    </div>
     <div id="content">
       <div>
         <span id="user-email"></span>
@@ -21,8 +31,8 @@
       </div>
       <div>
         <form id="note-form">
-          <textarea id="note-input" name="note" placeholder="Notatka"></textarea>
-          <button id="add-note-btn">Dodaj</button>
+          <!-- <textarea id="note-input" name="note" placeholder="Notatka"></textarea> -->
+          <!-- <button id="add-note-btn">Dodaj</button> -->
         </form>
         <ul id="note-list"></ul>
       </div>
