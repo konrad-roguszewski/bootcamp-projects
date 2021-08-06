@@ -1,112 +1,133 @@
 const loginForm = document.getElementById('login-form');
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    userRegistration();
-    loginUser();
+const emailInput = document.getElementById('email-input');
+const passwordInput = document.getElementById('password-input');
+
+const emailSpan = document.getElementById('user-email');
+const contentDiv = document.getElementById('content');
+
+loginForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  loginAndRegisterUser();
 });
 
-loginUser();
+function setCurrentUser(email) {
+  sessionStorage.setItem('CurrentUser', JSON.stringify(email));
+};
+
+function registerUser(email, password) {
+  let storedUsers = localStorage.UsersLogin ? JSON.parse(localStorage.UsersLogin) : [];
+  const userData = {
+      email,
+      password,
+  };
+  storedUsers.push(userData);
+  localStorage.setItem('UsersLogin', JSON.stringify(storedUsers));
+};
+
+function loginAndRegisterUser() {
+  const loginEmail = document.getElementById('email-input').value
+  const loginPass = document.getElementById('password-input').value
+  if (localStorage.getItem('UsersLogin')) {
+      const allStoredUsers = JSON.parse(localStorage.getItem('UsersLogin'));
+      const matchedUser = allStoredUsers.filter(user => {
+          return loginEmail === user.email && loginPass === user.password;
+      })
+      if (matchedUser.length) {
+        // window.alert('Login successful');
+        setCurrentUser(loginEmail);
+    } else {
+        // window.alert('Wrong credentials or new user');
+        registerUser(loginEmail, loginPass);
+        setCurrentUser(loginEmail);
+    }
+  } else {
+    // window.alert('Not a registered user');
+    registerUser(loginEmail, loginPass);
+    setCurrentUser(loginEmail);
+};
+window.location.reload();
+};
+
+function checkUserStatus() {
+  const reference = JSON.parse(sessionStorage.getItem('CurrentUser'));
+  if (reference) {
+      renderUserContent(reference)
+  } else {
+      renderForm()
+  };
+};
+
+checkUserStatus();
+
+function renderForm() {
+  content.style.display = 'none';
+  loginForm.style = {};
+};
+
+function renderUserContent(email) {
+  loginForm.style.display = 'none';
+  contentDiv.style = {};
+  emailSpan.textContent = `Użytkownik ${email} został automatycznie zalogowany`;
+};
 
 const logoutBtn = document.getElementById('sign-out-btn');
 logoutBtn.addEventListener('click', logoutUser);
 
-function userRegistration() {
-    const userData = {
-        email: document.getElementById('email-input').value,
-        password: document.getElementById('password-input').value,
-    };
-    sessionStorage.setItem('UsersLogin', JSON.stringify(userData));
-    // window.location.reload();
-    console.log(`e-mail: ${userData.email}, hasło: ${userData.password}`);
-};
-
-function loginUser() {
-  const loginEmail = document.getElementById('email-input').value;
-  const loginPass = document.getElementById('password-input').value;
-
-  const emailField = document.getElementById('user-email');
-  const content = document.getElementById('content');
-
-  if (sessionStorage.getItem('UsersLogin')) {
-      const loginDeets = JSON.parse(sessionStorage.getItem('UsersLogin'));
-      // console.log(loginDeets);
-      if (loginEmail === loginDeets.email && loginPass === loginDeets.password) {
-          // console.log('Login successful');
-
-          loginForm.style.display = 'none';
-          content.style = {};
-          emailField.textContent = `Użytkownik ${loginDeets.email} został automatycznie zalogowany`;
-
-      } else {
-          // console.log('Wrong credentials');
-
-          loginForm.style.display = 'none';
-          content.style = {};
-          emailField.textContent = `Użytkownik ${loginDeets.email} został automatycznie zalogowany`;
-      }
-  } else {
-      // console.log('Not a registered user');
-
-      content.style.display = 'none';
-      loginForm.style = {};
-      // emailField.textContent = 'No user';
-  };
-};
-
 function logoutUser() {
-  sessionStorage.removeItem('UsersLogin');
-  window.location.reload();
+    sessionStorage.removeItem('CurrentUser');
+    window.location.reload();
 };
+
+// >>> NOTES <<<
 
 const noteForm = document.getElementById('note-form');
 const noteInput = document.getElementById('note-input');
 const noteList = document.getElementById('note-list');
-
 let notes = [];
-
 noteForm.addEventListener('submit', function(e) {
     e.preventDefault();
     addNote(noteInput.value);
 });
 
 function addNote(item) {
-    if (item !== '') {
-        const note = {
-            id: Date.now(),
-            name: item,
-        };
-        notes.push(note);
-        const sortedNotes = notes.slice().sort((a, b) => b.id - a.id);
-        addToLocalStorage(sortedNotes);
-        noteInput.value = '';
+  const reference = JSON.parse(sessionStorage.getItem('CurrentUser'));
+  if (item !== '') {
+    const note = {
+        id: Date.now(),
+        name: item,
+        author: reference,
     };
+    notes.push(note);
+    const sortedNotes = notes.slice().sort((a, b) => b.id - a.id);
+    addNotesToLocalStorage(sortedNotes);
+    noteInput.value = '';
+};
 };
 
 function renderNotes(notes) {
-    noteList.innerText = '';
-    notes.forEach(function(item) {
-        const li = document.createElement('li');
-        // li.setAttribute('class', 'item');
-        // li.setAttribute('data-key', item.id);
-        li.innerText = `${item.name}`;
-        noteList.append(li);
-    });
+  const reference = JSON.parse(sessionStorage.getItem('CurrentUser'));
+  noteList.innerText = '';
+  notes.forEach(function(item) {
+      if (item.author === reference){
+          const li = document.createElement('li');
+          li.innerText = `${item.name}`;
+          noteList.append(li);
+      };
+  });
 };
 
-function addToLocalStorage(notes) {
-    localStorage.setItem('notes', JSON.stringify(notes));
-    renderNotes(notes);
+function addNotesToLocalStorage(notes) {
+  localStorage.setItem('notes', JSON.stringify(notes));
+  renderNotes(notes);
 };
 
-function getFromLocalStorage() {
-    const reference = localStorage.getItem('notes');
-    if (reference) {
-        notes = JSON.parse(reference);
-        // console.log(notes);
-        const sortedNotes = notes.slice().sort((a, b) => b.id - a.id);
-        // console.log(sortedNotes);
-        renderNotes(sortedNotes);
-    };
+function getNotesFromLocalStorage() {
+  const reference = localStorage.getItem('notes');
+  if (reference) {
+      notes = JSON.parse(reference);
+      const sortedNotes = notes.slice().sort((a, b) => b.id - a.id);
+      renderNotes(sortedNotes);
+  };
 };
 
-getFromLocalStorage();
+getNotesFromLocalStorage();
