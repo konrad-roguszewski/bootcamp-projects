@@ -57,3 +57,56 @@ function logoutUser() {
   sessionStorage.removeItem('UsersLogin');
   window.location.reload();
 };
+
+const noteForm = document.getElementById('note-form');
+const noteInput = document.getElementById('note-input');
+const noteList = document.getElementById('note-list');
+
+let notes = [];
+
+noteForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    addNote(noteInput.value);
+});
+
+function addNote(item) {
+    if (item !== '') {
+        const note = {
+            id: Date.now(),
+            name: item,
+        };
+        notes.push(note);
+        const sortedNotes = notes.slice().sort((a, b) => b.id - a.id);
+        addToLocalStorage(sortedNotes);
+        noteInput.value = '';
+    };
+};
+
+function renderNotes(notes) {
+    noteList.innerText = '';
+    notes.forEach(function(item) {
+        const li = document.createElement('li');
+        // li.setAttribute('class', 'item');
+        // li.setAttribute('data-key', item.id);
+        li.innerText = `${item.name}`;
+        noteList.append(li);
+    });
+};
+
+function addToLocalStorage(notes) {
+    localStorage.setItem('notes', JSON.stringify(notes));
+    renderNotes(notes);
+};
+
+function getFromLocalStorage() {
+    const reference = localStorage.getItem('notes');
+    if (reference) {
+        notes = JSON.parse(reference);
+        // console.log(notes);
+        const sortedNotes = notes.slice().sort((a, b) => b.id - a.id);
+        // console.log(sortedNotes);
+        renderNotes(sortedNotes);
+    };
+};
+
+getFromLocalStorage();
