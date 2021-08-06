@@ -18,24 +18,34 @@
   <body>
     <div id="login-panel" class="login-panel">
       <form id="login-form">
-        <input id="email-input" type="email" name="email" placeholder="e-mail" />
-        <input id="password-input" type="password" name="password" placeholder="hasło" />
+        <input
+          id="email-input"
+          type="email"
+          name="email"
+          placeholder="e-mail"
+        />
+        <input
+          id="password-input"
+          type="password"
+          name="password"
+          placeholder="hasło"
+        />
         <button id="sign-in-button">zaloguj</button>
       </form>
         <button id="sign-up-button">zarejestruj</button>
     </div>
     <div id="content">
-      <div>
-        <span id="user-email"></span>
-        <button id="sign-out-btn">wyloguj</button>
-      </div>
-      <div>
-        <form id="note-form">
-          <textarea id="note-input" name="note" placeholder="Notatka"></textarea>
-          <button id="add-note-btn">Dodaj</button>
-        </form>
-        <ul id="note-list"></ul>
-      </div>
+      <span id="user-email"></span>
+      <button id="sign-out-btn">wyloguj</button>
+      <form id="note-form">
+        <textarea id="note-input" name="note" placeholder="Treść notatki"></textarea>
+        <button id="add-note-btn">dodaj</button>
+      </form>
+      <form id="search-form">
+        <input id="search-input" type="text" name="search-bar" placeholder="Znajdź notatkę"/>
+        <button>szukaj</button>
+      </form>
+      <ul id="note-list"></ul>
     </div>
   </body>
 </html>

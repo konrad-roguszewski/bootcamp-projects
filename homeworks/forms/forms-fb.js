@@ -21,6 +21,10 @@ const logoutBtn = document.getElementById('sign-out-btn');
 const noteForm = document.getElementById('note-form');
 const noteInput = document.getElementById('note-input');
 const noteList = document.getElementById('note-list');
+const searchForm = document.getElementById('search-form');
+const searchInput = document.getElementById('search-input');
+
+let loggedInUser;
 
 loginForm.addEventListener('submit', function(e) {
   e.preventDefault();
@@ -38,6 +42,11 @@ logoutBtn.addEventListener('click', function() {
 noteForm.addEventListener('submit', function(e) {
   e.preventDefault();
   addNote();
+});
+
+searchForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  searchNotes();
 });
 
 function registerUser() {
@@ -82,9 +91,43 @@ function addNote() {
   noteInput.value = '';
 };
 
+function clearList() {
+  noteList.innerText = '';
+};
+
+function searchNotes() {
+  const searchInput = document.getElementById('search-input');
+  const searchValue = searchInput.value;
+
+  db.collection("notes").where('author', '==', loggedInUser.uid).orderBy('id', 'desc')
+  .get()
+  .then((querySnapshot) => {
+      clearList();
+      const filteredValues = [];
+      querySnapshot.forEach((doc) => {
+          if (doc.data().content.includes(searchValue)){
+              filteredValues.push(doc.data());
+          }; 
+      });
+      // console.log(filteredValues);
+      if(filteredValues.length === 0){
+          alert('Nie znaleziono pasujących wyników');
+      };
+      filteredValues.forEach(value => {
+          const noteNode = document.createElement('li');
+          noteNode.innerText = value.content;
+          noteList.appendChild(noteNode);
+      });
+  })
+  .catch((error) => {
+      console.log("Error getting documents: ", error);
+  });
+};
+
 let noteSubscription;
 
 firebase.auth().onAuthStateChanged(user => {
+  loggedInUser = user;
   const loginDiv = document.getElementById('login-panel');
   const emailSpan = document.getElementById('user-email');
   const contentDiv = document.getElementById('content');
@@ -102,6 +145,7 @@ firebase.auth().onAuthStateChanged(user => {
       noteSubscription = db.collection('notes')
           .where('author', '==', user.uid).orderBy('id', 'desc').onSnapshot((snapshot) => {
               const noteList = document.getElementById('note-list');
+              clearList();
               noteList.innerText = '';
               snapshot.forEach(doc => {
                   const noteNode = document.createElement('li');
