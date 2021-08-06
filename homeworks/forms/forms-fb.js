@@ -18,6 +18,9 @@ const signUpBtn = document.getElementById('sign-up-button');
 const emailSpan = document.getElementById('user-email');
 const contentDiv = document.getElementById('content');
 const logoutBtn = document.getElementById('sign-out-btn');
+const noteForm = document.getElementById('note-form');
+const noteInput = document.getElementById('note-input');
+const noteList = document.getElementById('note-list');
 
 loginForm.addEventListener('submit', function(e) {
   e.preventDefault();
@@ -30,6 +33,11 @@ signUpBtn.addEventListener('click', function() {
 
 logoutBtn.addEventListener('click', function() {
   logOutUser();
+});
+
+noteForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+  addNote();
 });
 
 function registerUser() {
@@ -62,17 +70,47 @@ function logOutUser() {
       .catch(error => alert(error.message));
 };
 
+function addNote() {
+  const noteInput = document.getElementById('note-input');
+  const noteValue = noteInput.value;
+  db.collection('notes')
+      .add({
+          id: Date.now(),
+          content: noteValue,
+          author: firebase.auth().currentUser.uid
+      });
+  noteInput.value = '';
+};
+
+let noteSubscription;
+
 firebase.auth().onAuthStateChanged(user => {
   const loginDiv = document.getElementById('login-panel');
   const emailSpan = document.getElementById('user-email');
   const contentDiv = document.getElementById('content');
 
+  if (noteSubscription) {
+      noteSubscription();
+      noteSubscription = null;
+  }
+
   if (user) {
       loginDiv.style.display = 'none';
       contentDiv.style = {};
       emailSpan.textContent = `Użytkownik ${user.email} został automatycznie zalogowany`;
+
+      noteSubscription = db.collection('notes')
+          .where('author', '==', user.uid).orderBy('id', 'desc').onSnapshot((snapshot) => {
+              const noteList = document.getElementById('note-list');
+              noteList.innerText = '';
+              snapshot.forEach(doc => {
+                  const noteNode = document.createElement('li');
+                  noteNode.innerText = doc.data().content;
+                  noteList.appendChild(noteNode);
+              });
+          });
   } else {
       contentDiv.style.display = 'none';
       loginDiv.style = {};
-  }
+  };
 });
